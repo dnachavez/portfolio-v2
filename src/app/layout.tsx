@@ -1,5 +1,6 @@
 import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
+import { DynamicFavicon } from "@/components/dynamic-favicon";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
@@ -19,6 +20,9 @@ export const metadata: Metadata = {
     template: `%s | ${DATA.name}`,
   },
   description: DATA.description,
+  icons: {
+    icon: "/avatar/me-light.png",
+  },
   openGraph: {
     title: `${DATA.name}`,
     description: DATA.description,
@@ -62,6 +66,7 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light">
+          <DynamicFavicon />
           <TooltipProvider delayDuration={0}>
             {children}
             <Navbar />
