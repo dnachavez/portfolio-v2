@@ -483,9 +483,10 @@ export function ChatPopover({
                 </button>
               </div>
             </form>
-            <p className="text-xs text-muted-foreground/60 text-center mt-3">
-              Powered by Groq using openai/gpt-oss-120b
-            </p>
+            <div className="text-xs text-muted-foreground/60 text-center mt-3 space-y-0.5">
+              <p>Powered by Groq using openai/gpt-oss-120b</p>
+              <p>Memory layer powered by mem0</p>
+            </div>
           </div>
         </div>
       </PopoverContent>
