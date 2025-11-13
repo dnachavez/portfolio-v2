@@ -16,6 +16,7 @@ import Markdown from "react-markdown";
 const BLUR_FADE_DELAY = 0.04;
 
 const SECTIONS = [
+  { id: "resume", label: "Resume" },
   { id: "work", label: "Work Experience" },
   { id: "education", label: "Education" },
   { id: "skills", label: "Skills" },
@@ -93,15 +94,58 @@ export default function Page() {
 
         {/* Right Column - Scrollable */}
         <div className="space-y-10">
-          <section id="work">
+          <section id="resume">
             <div className="flex min-h-0 flex-col gap-y-3">
               <BlurFade delay={BLUR_FADE_DELAY * 5}>
+                <h2 className="text-xl font-bold">Resume</h2>
+              </BlurFade>
+              <BlurFade delay={BLUR_FADE_DELAY * 5.5}>
+                <div className="relative group">
+                  {/* PDF Preview with blur effect */}
+                  <div className="relative overflow-hidden rounded-lg border bg-card">
+                    <div className="relative h-[500px] w-full">
+                      <iframe
+                        src="/resume.pdf"
+                        className="w-full h-full pointer-events-none"
+                        title="Resume Preview"
+                      />
+                      {/* Gradient blur overlay - bottom 65% with ultra smooth transition */}
+                      <div 
+                        className="absolute bottom-0 left-0 right-0 h-[65%] backdrop-blur-xl"
+                        style={{
+                          maskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.2) 10%, rgba(0,0,0,0.5) 25%, rgba(0,0,0,0.8) 45%, black 70%)',
+                          WebkitMaskImage: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.2) 10%, rgba(0,0,0,0.5) 25%, rgba(0,0,0,0.8) 45%, black 70%)',
+                        }}
+                      />
+                      <div 
+                        className="absolute bottom-0 left-0 right-0 h-[65%] bg-gradient-to-b from-transparent from-0% via-background/50 via-40% to-background to-90%"
+                      />
+                    </div>
+                  </div>
+                  
+                  {/* Download link */}
+                  <Link
+                    href="/resume.pdf"
+                    download="Dan_Chavez_Resume.pdf"
+                    className="group inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:underline active:underline transition-colors mt-4"
+                  >
+                    View full resume archive
+                    <ChevronRightIcon className="size-4 translate-x-0 transform transition-all duration-300 ease-out group-hover:translate-x-1" />
+                  </Link>
+                </div>
+              </BlurFade>
+            </div>
+          </section>
+
+          <section id="work">
+            <div className="flex min-h-0 flex-col gap-y-3">
+              <BlurFade delay={BLUR_FADE_DELAY * 6}>
                 <h2 className="text-xl font-bold">Work Experience</h2>
               </BlurFade>
               {DATA.work.map((work, id) => (
                 <BlurFade
                   key={work.company}
-                  delay={BLUR_FADE_DELAY * 6 + id * 0.05}
+                  delay={BLUR_FADE_DELAY * 7 + id * 0.05}
                 >
                   <ResumeCard
                     key={work.company}
