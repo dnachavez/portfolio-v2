@@ -152,7 +152,8 @@ export const DATA = {
       logoUrl: "/work-experience/goteam.png",
       start: "June 2025",
       end: "Present",
-      description: "",
+      description:
+        "Built AI agents and automation workflows for internal sales and marketing teams, streamlining lead qualification, data enrichment, and reporting while reducing manual busywork for stakeholders. Integrated multiple internal and third-party systems via secure APIs, token management, and event-driven workflows, eliminating duplicate data entry and improving data consistency across CRM, marketing, and operations tools. Evaluated and piloted emerging AI technologies and low/no-code agent-building platforms to deliver rapid proofs of concept, then hardened successful experiments into production-ready solutions, shortening the cycle from idea to deployed automation. Collaborated with sales, marketing, and leadership to translate business requirements into AI-powered processes, documenting standards, reusable components, and runbooks that laid the groundwork for a scalable internal AI and automation consulting team.",
     },
     {
       company: "Bilis Delivery",
