@@ -8,10 +8,6 @@ interface SessionIndicatorProps {
   showDetails?: boolean;
 }
 
-/**
- * Optional component to display session information
- * Useful for debugging or showing users their session status
- */
 export function SessionIndicator({
   className,
   showDetails = false,

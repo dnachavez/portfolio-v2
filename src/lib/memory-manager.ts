@@ -1,12 +1,6 @@
-/**
- * Memory Manager using mem0
- * Handles conversation memory storage and retrieval
- */
-
 import { MemoryClient } from "mem0ai";
 import { rewriteQueryForMemory } from "./agents/query-rewriter";
 
-// Initialize mem0 client
 const mem0 = new MemoryClient({
   apiKey: process.env.MEM0_API_KEY!,
 });
@@ -18,30 +12,17 @@ export interface MemoryContext {
   conversationContext?: string;
 }
 
-/**
- * Retrieve memories for a session
- * Returns formatted context to enhance system prompts and queries
- *
- * Uses query rewriting agent to optimize search queries before retrieval
- */
 export async function retrieveMemories(
   sessionId: string,
   userMessage: string
 ): Promise<MemoryContext> {
   try {
-    // Step 1: Rewrite query for better memory retrieval
     const rewriteResult = await rewriteQueryForMemory(userMessage);
     const searchQuery =
       rewriteResult.success && rewriteResult.data
         ? rewriteResult.data.rewrittenQuery
-        : userMessage; // Fallback to original if rewriting fails
+        : userMessage;
 
-    if (rewriteResult.success && rewriteResult.data) {
-      console.log(`🔄 Query rewritten: "${userMessage}" → "${searchQuery}"`);
-      console.log(`   Reasoning: ${rewriteResult.data.reasoning}`);
-    }
-
-    // Step 2: Search memories with optimized query
     const memories = await mem0.search(searchQuery, {
       user_id: sessionId,
       limit: 10,
@@ -51,11 +32,6 @@ export async function retrieveMemories(
       return {};
     }
 
-    console.log(
-      `🔍 Found ${memories.length} relevant memor${memories.length === 1 ? "y" : "ies"}`
-    );
-
-    // Parse and categorize memories
     const context: MemoryContext = {
       attemptedDocs: [],
     };
@@ -65,11 +41,9 @@ export async function retrieveMemories(
     const conversationPieces: string[] = [];
 
     for (const memory of memories) {
-      // mem0 API returns memory in different fields depending on version
       const content =
         (memory as any).memory || (memory as any).data?.memory || "";
 
-      // Categorize based on content patterns
       if (
         content.includes("prefers") ||
         content.includes("likes") ||
@@ -82,7 +56,6 @@ export async function retrieveMemories(
       ) {
         clarifications.push(content);
       } else if (content.includes("tried") || content.includes("attempted")) {
-        // Extract doc references
         const docMatch = content.match(/tried (\w+)/);
         if (docMatch && context.attemptedDocs) {
           context.attemptedDocs.push(docMatch[1]);
@@ -104,15 +77,10 @@ export async function retrieveMemories(
 
     return context;
   } catch (error) {
-    console.error("Error retrieving memories:", error);
     return {};
   }
 }
 
-/**
- * Add memories after validation
- * Stores user turn + final answer with TTL for conversation memory
- */
 export async function addMemories(
   sessionId: string,
   userMessage: string,
@@ -120,7 +88,7 @@ export async function addMemories(
   metadata?: Record<string, any>
 ): Promise<void> {
   try {
-    const result = await mem0.add(
+    await mem0.add(
       [
         {
           role: "user",
@@ -139,17 +107,10 @@ export async function addMemories(
         },
       }
     );
-
-    console.log(`✅ Memory added for session ${sessionId}`);
   } catch (error) {
-    console.error("Error adding memories:", error);
-    // Don't throw - memory failures shouldn't break the chat
   }
 }
 
-/**
- * Format memory context for system prompt
- */
 export function formatMemoryForPrompt(context: MemoryContext): string {
   const parts: string[] = [];
 
@@ -172,26 +133,16 @@ export function formatMemoryForPrompt(context: MemoryContext): string {
   return parts.length > 0 ? `\n\nMemory Context:\n${parts.join("\n")}` : "";
 }
 
-/**
- * Delete expired memories (for cron job)
- */
 export async function cleanupExpiredMemories(): Promise<{
   deleted: number;
   errors: number;
 }> {
   try {
-    // mem0 handles TTL automatically, but we can manually check and delete if needed
-    // This is a placeholder for any custom cleanup logic
-    console.log(
-      "Memory cleanup: TTL-based expiry is handled automatically by mem0"
-    );
-
     return {
       deleted: 0,
       errors: 0,
     };
   } catch (error) {
-    console.error("Error during memory cleanup:", error);
     return {
       deleted: 0,
       errors: 1,

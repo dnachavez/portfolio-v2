@@ -105,7 +105,6 @@ export function ProjectItem({
         </div>
       </div>
 
-      {/* Links outside the main link to avoid nesting */}
       {links && links.length > 0 && (
         <div className="flex flex-row flex-wrap items-start gap-2 mt-2 ml-[152px]">
           {links.map((link, idx) => (

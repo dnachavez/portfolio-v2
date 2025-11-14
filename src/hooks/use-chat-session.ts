@@ -17,10 +17,8 @@ export function useChatSession() {
       setIsActive(hasActiveSession());
     };
 
-    // Initial update
     updateSessionInfo();
 
-    // Update every minute to keep session info fresh
     const interval = setInterval(updateSessionInfo, 60000);
 
     return () => clearInterval(interval);

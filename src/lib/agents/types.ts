@@ -28,7 +28,7 @@ export const ValidatedAnswerSchema = z.object({
   finalAnswer: z.string(),
   validationNotes: z.string(),
   confidence: z.number().min(0).max(1),
-  needsRetrieval: z.boolean(), // true if knowledge retrieval needs to be redone
+  needsRetrieval: z.boolean(),
 });
 
 export type AgentResult<T> = {

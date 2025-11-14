@@ -12,7 +12,6 @@ export async function retrieveKnowledge(
   try {
     const resumeContext = JSON.stringify(DATA, null, 2);
 
-    // Build memory context string
     let memoryContextStr = "";
     if (memoryContext) {
       const parts: string[] = [];

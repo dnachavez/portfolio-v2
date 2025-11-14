@@ -24,12 +24,10 @@ export default function Navbar() {
   const [hasSession, setHasSession] = useState(false);
 
   useEffect(() => {
-    // Check if there's an active session
     const checkSession = () => {
       const activeSession = hasActiveSession();
       setHasSession(activeSession);
 
-      // Only show welcome card if there's no active session
       if (!activeSession) {
         const timer = setTimeout(() => {
           setShowWelcomeCard(true);
@@ -40,7 +38,6 @@ export default function Navbar() {
 
     checkSession();
 
-    // Check session status periodically (every 30 seconds)
     const interval = setInterval(checkSession, 30000);
 
     return () => clearInterval(interval);
@@ -49,11 +46,10 @@ export default function Navbar() {
   const handleQuestionClick = (question: string) => {
     setExternalMessage(question);
     setShowWelcomeCard(false);
-    setHasSession(true); // Session will be created when message is sent
+    setHasSession(true);
   };
 
   const handleMessageSent = () => {
-    // After first message, session is created
     setHasSession(true);
     setShowWelcomeCard(false);
   };
@@ -70,7 +66,6 @@ export default function Navbar() {
     setIsChatOpen(isOpen);
   };
 
-  // Determine if welcome card should be visible
   const shouldShowWelcomeCard = showWelcomeCard && !hasSession && !isChatOpen;
 
   return (
@@ -135,7 +130,6 @@ export default function Navbar() {
         </Dock>
 
         <div className="relative h-full">
-          {/* Welcome Card */}
           {shouldShowWelcomeCard && (
             <div className="absolute bottom-full mb-4 right-0 pointer-events-auto animate-in fade-in slide-in-from-bottom-4 duration-300">
               <ChatWelcomeCard
@@ -145,7 +139,6 @@ export default function Navbar() {
             </div>
           )}
 
-          {/* Chat Button */}
           <Dock className="z-50 pointer-events-auto relative flex min-h-full h-full items-center px-1 bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] transform-gpu dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] ">
             <DockIcon>
               <ChatPopover

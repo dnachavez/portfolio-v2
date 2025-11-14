@@ -51,20 +51,16 @@ export function ChatPopover({
   const inputRef = useRef<HTMLInputElement>(null);
   const [sessionInitialized, setSessionInitialized] = useState(false);
 
-  // Notify parent when popover opens/closes
   useEffect(() => {
     onOpenChange?.(isOpen);
   }, [isOpen, onOpenChange]);
 
-  // Initialize session and load messages on mount
   useEffect(() => {
     if (typeof window === "undefined" || sessionInitialized) return;
 
-    // Check if there's an existing session without creating one
     const stored = sessionStorage.getItem("chat_session");
 
     if (stored) {
-      // Load existing session
       const savedMessages = getSessionMessages();
       if (savedMessages.length > 0) {
         setMessages(
@@ -75,7 +71,6 @@ export function ChatPopover({
         );
       }
     } else {
-      // No session yet, just show welcome message without creating session
       const welcomeMessage: Message = {
         role: "assistant",
         content:
@@ -83,7 +78,6 @@ export function ChatPopover({
         timestamp: new Date(),
       };
       setMessages([welcomeMessage]);
-      // Don't create session or save message yet
     }
 
     setSessionInitialized(true);
@@ -104,7 +98,6 @@ export function ChatPopover({
 
       setInput("");
 
-      // Create or get session (this is where session is actually created on first message)
       const session = getOrCreateSession();
 
       const newUserMessage: Message = {
@@ -114,7 +107,6 @@ export function ChatPopover({
       };
       setMessages((prev) => [...prev, newUserMessage]);
 
-      // Save user message to session
       addMessageToSession(newUserMessage);
 
       setIsLoading(true);
@@ -123,7 +115,6 @@ export function ChatPopover({
       onMessageSent?.();
 
       try {
-        // Use session ID for memory management
         const response = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -170,20 +161,17 @@ export function ChatPopover({
                   };
                   setMessages((prev) => [...prev, assistantMessage]);
 
-                  // Save assistant message to session
                   addMessageToSession(assistantMessage);
 
                   setCurrentStatus("");
                   setCurrentStatusDetail("");
                 }
               } catch (e) {
-                console.error("Error parsing SSE data:", e);
               }
             }
           }
         }
       } catch (error) {
-        console.error("Error:", error);
         const errorMessage: Message = {
           role: "assistant",
           content: "Sorry, I encountered an error. Please try again.",
@@ -191,7 +179,6 @@ export function ChatPopover({
         };
         setMessages((prev) => [...prev, errorMessage]);
 
-        // Save error message to session
         addMessageToSession(errorMessage);
 
         setCurrentStatus("");
@@ -203,7 +190,6 @@ export function ChatPopover({
     [input, isLoading, onMessageSent]
   );
 
-  // Handle external messages from welcome card
   useEffect(() => {
     if (externalMessage) {
       setIsOpen(true);
@@ -212,7 +198,6 @@ export function ChatPopover({
     }
   }, [externalMessage, handleSendMessage, onExternalMessageProcessed]);
 
-  // Focus input when popover opens
   useEffect(() => {
     if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 100);
@@ -283,7 +268,6 @@ export function ChatPopover({
         className="w-[380px] p-0 mb-2 border-0 bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)] dark:[border:1px_solid_rgba(255,255,255,.1)] dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset]"
       >
         <div className="flex flex-col h-[500px]">
-          {/* Chat Header */}
           <div className="px-5 py-4 border-b border-border/40">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full overflow-hidden ring-1 ring-primary/10">
@@ -311,7 +295,6 @@ export function ChatPopover({
             </div>
           </div>
 
-          {/* Chat Messages */}
           <div className="flex-1 overflow-y-auto p-5 space-y-4 bg-muted/20">
             {messages.map((message, index) => (
               <div
@@ -448,7 +431,6 @@ export function ChatPopover({
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Chat Input */}
           <div className="p-4 border-t border-border/40 bg-background">
             <form onSubmit={handleSubmit}>
               <div className="relative">

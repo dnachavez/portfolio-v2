@@ -3,7 +3,6 @@ import { ChevronLeftIcon } from "lucide-react";
 import Link from "next/link";
 
 export default function CertificationsPage() {
-  // Sort certifications by date (most recent first)
   const sortedCertifications = [...DATA.certifications].sort((a, b) => {
     const getYear = (dateStr: string) => {
       const match = dateStr.match(/\d{4}/);

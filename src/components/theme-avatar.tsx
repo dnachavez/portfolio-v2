@@ -15,15 +15,12 @@ export function ThemeAvatar({ name, initials, className }: ThemeAvatarProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // Avoid hydration mismatch
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Determine current theme (resolvedTheme handles 'system' preference)
   const currentTheme = mounted ? resolvedTheme : "light";
 
-  // Select the appropriate image based on theme and hover state
   const getAvatarSrc = () => {
     if (isHovered) {
       return currentTheme === "dark"

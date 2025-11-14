@@ -27,12 +27,10 @@ const SECTIONS = [
 ];
 
 export default function Page() {
-  // Sort projects by date (most recent first)
   const sortedProjects = [...DATA.projects].sort((a, b) => {
     return getProjectSortDate(b.dates) - getProjectSortDate(a.dates);
   });
 
-  // Sort certifications by date (most recent first)
   const sortedCertifications = [...DATA.certifications].sort((a, b) => {
     const getYear = (dateStr: string) => {
       const match = dateStr.match(/\d{4}/);
@@ -43,9 +41,7 @@ export default function Page() {
 
   return (
     <main className="flex flex-col min-h-[100dvh] space-y-10">
-      {/* Two Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        {/* Left Column - Sticky */}
         <div className="space-y-10 lg:sticky lg:top-10 lg:self-start">
           <section id="hero">
             <div className="space-y-8">
@@ -92,7 +88,6 @@ export default function Page() {
           </BlurFade>
         </div>
 
-        {/* Right Column - Scrollable */}
         <div className="space-y-10">
           <section id="resume">
             <div className="flex min-h-0 flex-col gap-y-3">
@@ -101,7 +96,6 @@ export default function Page() {
               </BlurFade>
               <BlurFade delay={BLUR_FADE_DELAY * 5.5}>
                 <div className="relative group">
-                  {/* PDF Preview with blur effect */}
                   <div className="relative overflow-hidden rounded-lg border bg-card">
                     <div className="relative h-[500px] w-full">
                       <iframe
@@ -109,7 +103,6 @@ export default function Page() {
                         className="w-full h-full pointer-events-none"
                         title="Resume Preview"
                       />
-                      {/* Gradient blur overlay - bottom 65% with ultra smooth transition */}
                       <div 
                         className="absolute bottom-0 left-0 right-0 h-[65%] backdrop-blur-xl"
                         style={{
@@ -123,7 +116,6 @@ export default function Page() {
                     </div>
                   </div>
                   
-                  {/* Download link */}
                   <Link
                     href="/resume.pdf"
                     download="Dan_Chavez_Resume.pdf"

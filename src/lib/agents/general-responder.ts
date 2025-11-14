@@ -7,11 +7,6 @@ const GeneralResponseSchema = z.object({
   answer: z.string(),
 });
 
-/**
- * General Conversation Responder
- * Handles casual conversation, greetings, and follow-up questions
- * Uses memory context to provide personalized responses
- */
 export async function respondToGeneralConversation(
   userMessage: string,
   sentiment: "positive" | "neutral" | "negative",

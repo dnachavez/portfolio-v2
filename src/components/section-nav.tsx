@@ -12,23 +12,19 @@ export function SectionNav({ sections }: SectionNavProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Check if we're at the bottom of the page
       const isAtBottom =
         window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - 100;
 
       if (isAtBottom) {
-        // Set the last section as active when at bottom
         setActiveSection(sections[sections.length - 1].id);
         return;
       }
 
-      // Otherwise, find the section that's currently in view
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = document.getElementById(sections[i].id);
         if (section) {
           const rect = section.getBoundingClientRect();
-          // Check if section is in the upper portion of the viewport
           if (rect.top <= window.innerHeight * 0.3) {
             setActiveSection(sections[i].id);
             break;
@@ -37,10 +33,8 @@ export function SectionNav({ sections }: SectionNavProps) {
       }
     };
 
-    // Initial check
     handleScroll();
 
-    // Listen to scroll events
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => window.removeEventListener("scroll", handleScroll);
@@ -66,7 +60,6 @@ export function SectionNav({ sections }: SectionNavProps) {
               : "text-muted-foreground hover:text-foreground"
           )}
         >
-          {/* Horizontal line to the left */}
           <span
             className={cn(
               "h-px bg-current transition-all duration-300 ease-out",

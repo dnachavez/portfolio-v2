@@ -29,7 +29,6 @@ export function ChatWelcomeCard({
       onFocus={() => setIsHovered(true)}
       onBlur={() => setIsHovered(false)}
     >
-      {/* Close button */}
       <button
         onClick={onClose}
         className={`absolute -top-8 right-0 z-10 rounded-full bg-background p-1.5 shadow-sm ring-1 ring-border/40 transition-opacity duration-200 hover:bg-muted ${
@@ -40,14 +39,12 @@ export function ChatWelcomeCard({
         <X className="h-3.5 w-3.5" />
       </button>
 
-      {/* Main card */}
       <div className="rounded-xl bg-background px-5 py-3.5 shadow-sm ring-1 ring-border/40">
         <p className="text-xs font-normal leading-relaxed">
           👋 Hi! I&apos;m Dan, ask me anything!
         </p>
       </div>
 
-      {/* Quick reply buttons */}
       <div className="mt-3 flex flex-col items-stretch gap-2">
         {questions.map((question, index) => (
           <button

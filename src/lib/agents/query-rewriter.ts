@@ -8,15 +8,6 @@ const QueryRewriteSchema = z.object({
   reasoning: z.string(),
 });
 
-/**
- * Query Rewriting Agent
- * Rewrites user queries to improve memory retrieval effectiveness
- *
- * This is an industry-standard RAG pattern that:
- * - Transforms conversational questions into better search queries
- * - Extracts key semantic concepts for vector search
- * - Handles pronouns and context references
- */
 export async function rewriteQueryForMemory(
   userMessage: string
 ): Promise<AgentResult<z.infer<typeof QueryRewriteSchema>>> {

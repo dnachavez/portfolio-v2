@@ -5,7 +5,6 @@ import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
 
 export default function ProjectsPage() {
-  // Sort projects by date (most recent first)
   const sortedProjects = [...DATA.projects].sort((a, b) => {
     return getProjectSortDate(b.dates) - getProjectSortDate(a.dates);
   });
