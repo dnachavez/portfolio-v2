@@ -140,7 +140,7 @@ export const DATA = {
       title: "Chief Technology Officer",
       logoUrl: "/work-experience/developkreativity.png",
       start: "November 2023",
-      end: "Present",
+      end: "December 2025",
       description: "",
     },
     {
@@ -163,7 +163,7 @@ export const DATA = {
       title: "Lead Full-Stack Engineer",
       logoUrl: "/work-experience/bilis.png",
       start: "April 2024",
-      end: "Present",
+      end: "December 2025",
       description:
         "Built a food-delivery platform that processed 10,000+ orders from 2,000+ users in its first year, leveraging Laravel queues and Redis for asynchronous workloads while maintaining 99.9% uptime at peak traffic. Added real-time order tracking and notifications via WebSockets and the Google Maps API, enabling customers to monitor deliveries through push, SMS, in-app, and email alerts. Integrated COD, credit-card, and in-app-wallet payments with secure transactions using Laravel Passport and OTP verification. Created a zone-based driver-matching algorithm that filters drivers by location, vehicle compatibility, and live availability, accelerating driver assignment by 80%. Scaled the backend by optimizing queries, adding indexes, and caching hot data in Redis, significantly reducing page-load times. Employed batch processing, atomic transactions, and efficient upsert operations to handle 100+ concurrent orders during peak hours. Designed a multi-guard authentication scheme with Laravel Passport and custom session-based guards for customers, drivers, vendors, and admins. Implemented granular, module-level RBAC, with roles and permissions defined through JSON-configured modules in the database. Structured the backend as a modular monolith using service interfaces and the nwidart/laravel-modules package to encapsulate business logic.",
     },
@@ -175,7 +175,7 @@ export const DATA = {
       title: "Full-Stack Developer",
       logoUrl: "/work-experience/uspf.png",
       start: "June 2023",
-      end: "Present",
+      end: "July 2026",
       description:
         "Developed a multi-agent AI chat system using a state-graph pipeline that delivers automated, context-aware responses, achieving 85% query-resolution accuracy and reducing support requests by 40%. Built a university app that boosted service access by 35% by integrating digital ID/RFID tracking, statement-of-account retrieval from Pinnacle, and online payments through UnionBank and MLhuillier. Reduced average wait times at university service offices by 80% by developing a queuing management system that replaced manual queues. Upgraded a PowerEdge R440 server and locally deployed a document-records management system, eliminating manual storage and sharing and improving inter-departmental workflow by 60%.",
     },
